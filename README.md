@@ -1,5 +1,5 @@
+Ennoncé : 
 Créer une application symfony répondant aux critères suivants :
-
 Une voiture a un nom (ex : Megan II), une année de mise sur le marché, un nombre de portes. On précisera si elle est électrique ou non (dans le cadre de cette application on partira du principe que nous vivons dans un monde alternatif où les voitures hybrides n'existent pas (lol)). 
 Une marque a un nom, une date de création et un ensemble de voitures créées.
 On peut Ajouter, consulter ou supprimer chacun des objets créés.
