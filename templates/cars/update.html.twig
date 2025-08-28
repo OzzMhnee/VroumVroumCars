@@ -1,0 +1,86 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajouter une nouvelle voiture{% endblock %}
+
+{% block stylesheets %}
+    <style>
+        .car-form-container {
+            background: #fff;
+            border-radius: 22px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.10);
+            padding: 38px 38px 28px 38px;
+            margin: 40px auto 0 auto;
+            max-width: 480px;
+        }
+        .car-form-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 28px;
+            text-align: center;
+        }
+        .car-form .form-control, .car-form .form-select {
+            border-radius: 12px;
+            border: 1px solid #e0e0e0;
+            box-shadow: none;
+            font-size: 1.08rem;
+        }
+        .car-form .form-label {
+            font-weight: 500;
+            color: #34495e;
+        }
+        .car-form .form-group,
+        .car-form .mb-3,
+        .car-form > div {
+            margin-bottom: 22px !important;
+        }
+        .car-form .btn-success {
+            width: 100%;
+            font-size: 1.15rem;
+            padding: 12px 0;
+            margin-top: 18px;
+            border-radius: 10px;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+    <div class="car-form-container">
+        <div class="car-form-title">Ajouter une nouvelle voiture</div>
+        {{ form_start(form, {'attr': {'class': 'car-form'}}) }}
+            <div class="mb-3">
+                {{ form_label(form.name, 'Nom de la voiture', {'label_attr': {'class': 'form-label fw-bold'}}) }}
+                {{ form_widget(form.name, { 'attr': {'class': 'form-control text-center', "placeholder": "Nom de la voiture" } }) }}
+                {{ form_errors(form.name) }}
+            </div>
+            <div class="mb-3">
+                {{ form_label(form.Brand_id, 'Marque de la voiture', {'label_attr': {'class': 'form-label fw-bold'}}) }}
+                {{ form_widget(form.Brand_id, { 'attr': {'class': 'form-select text-center', "placeholder": "Sélectionnez une marque" } }) }}
+                {{ form_errors(form.Brand_id) }}
+            </div>
+            <div class="mb-3">
+                {{ form_label(form.circulationAt, 'Date de circulation', {'label_attr': {'class': 'form-label fw-bold'}}) }}
+                {{ form_widget(form.circulationAt, { 'attr': {'class': 'form-control text-center', "placeholder": "Date de circulation" } }) }}
+                {{ form_errors(form.circulationAt) }}
+            </div>
+            <div class="mb-3">
+                {{ form_label(form.DoorsNumber, 'Nombre de portes', {'label_attr': {'class': 'form-label fw-bold'}}) }}
+                {{ form_widget(form.DoorsNumber, { 'attr': {'class': 'form-control text-center', "placeholder": "Nombre de portes" } }) }}
+                {{ form_errors(form.DoorsNumber) }}
+            </div>
+            <div class="mb-3">
+                {{ form_label(form.isElectric, 'Électrique', {'label_attr': {'class': 'form-label fw-bold'}}) }}
+                {{ form_widget(form.isElectric, { 'attr': {'class': 'form-check-input' } }) }}
+                {{ form_errors(form.isElectric) }}
+            </div>
+            <div class="mb-3">
+                {{ form_label(form.imgCar, 'Image de la voiture', {'label_attr': {'class': 'form-label fw-bold'}}) }}
+                {{ form_widget(form.imgCar, { 'attr': {'class': 'form-control text-center', "placeholder": "Image de la voiture" } }) }}
+                {{ form_errors(form.imgCar) }}
+            </div>
+            <button type="submit" class="btn btn-success">Validez les modifications</button>
+        {{ form_end(form) }}
+    </div>
+{% endblock %}

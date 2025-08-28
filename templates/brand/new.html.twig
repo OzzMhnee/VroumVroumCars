@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajouter une nouvelle marque{% endblock %}
+
+{% block stylesheets %}
+    <style>
+        .brand-form-container {
+            background: #fff;
+            border-radius: 22px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.10);
+            padding: 38px 38px 28px 38px;
+            margin: 40px auto 0 auto;
+            max-width: 480px;
+        }
+        .brand-form-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 28px;
+            text-align: center;
+        }
+        .brand-form .form-control, .brand-form .form-select {
+            border-radius: 12px;
+            border: 1px solid #e0e0e0;
+            box-shadow: none;
+            font-size: 1.08rem;
+        }
+        .brand-form .form-label {
+            font-weight: 500;
+            color: #34495e;
+        }
+        .brand-form .form-group,
+        .brand-form .mb-3,
+        .brand-form > div {
+            margin-bottom: 22px !important;
+        }
+        .brand-form .btn-success {
+            width: 100%;
+            font-size: 1.15rem;
+            padding: 12px 0;
+            margin-top: 18px;
+            border-radius: 10px;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+    <div class="brand-form-container">
+        <div class="brand-form-title">Ajouter une nouvelle marque</div>
+        {{ form_start(form, {'attr': {'class': 'brand-form'}}) }}
+            {{ form_widget(form) }}
+            <button class="btn btn-success">Ajouter</button>
+        {{ form_end(form) }}
+    </div>
+{% endblock %}

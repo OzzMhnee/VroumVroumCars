@@ -1,0 +1,103 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des voitures{% endblock %}
+
+{% block stylesheets %}
+    <style>
+        .car-table-container {
+            border-radius: 30px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+            padding: 32px 32px 24px 32px;
+            width: 1000px;
+            background: #fff;
+            margin-bottom: 32px;
+        }
+        .car-table th {
+            background: #f8f9fa;
+            color: #333;
+            font-weight: 600;
+            text-align: center;
+        }
+        .car-table td, .car-table th {
+            vertical-align: middle;
+            text-align: center;
+        }
+        .car-table tbody tr {
+            transition: background 0.2s;
+        }
+        .car-table tbody tr:hover {
+            background: #f1f3f6;
+        }
+        .car-image {
+            width: 70px;
+            height: 70px;
+            object-fit: contain;
+            border: 2px solid #e0e0e0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        }
+        .car-actions .btn {
+            margin-right: 6px;
+        }
+        .car-title {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 24px;
+            letter-spacing: 1px;
+        }
+        .add-car-btn {
+            margin-top: 18px;
+            font-size: 1.1rem;
+            padding: 10px 28px;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+<div class="d-flex flex-column justify-content-between align-items-center mt-4">
+    <div class="car-table-container">
+        <h1 class="car-title">Liste des voitures</h1>
+        <table class="table car-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Image</th>
+                    <th>Nom</th>
+                    <th>Marque</th>
+                    <th>Nombre de portes</th>
+                    <th>Énergie</th>
+                    <th>Année de mise en circulation</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for car in cars %}
+                <tr>
+                    <td>{{ car.id }}</td>
+                    <td>
+                        <img src="{{ asset('img/cars/' ~ car.imgCar) }}" alt="{{ car.name }}" class="car-image">
+                    </td>
+                    <td><span class="fw-semibold">{{ car.name }}</span></td>
+                    <td>{{ car.BrandId.name }}</td>
+                    <td>{{ car.DoorsNumber }}</td>
+                    <td>{{ car.isElectric ? 'Électrique' : 'Thermique' }}</td>
+                    <td>{{ car.circulationAt|date('Y') }}</td>
+                    <td class="car-actions">
+                        <a href="{{ path('app_car_update', {'id': car.id}) }}" class="btn btn-outline-primary btn-sm">Éditer</a>
+                        <form method="post" action="{{ path('app_car_delete', {'id': car.id}) }}" style="display:inline-block;" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette voiture ?');">
+                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ car.id) }}">
+                            <button class="btn btn-outline-danger btn-sm">Supprimer</button>
+                        </form>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="8">Aucune voiture trouvée.</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <a href="{{ path('app_car_new') }}" class="btn btn-success add-car-btn">Ajouter une nouvelle voiture</a>
+    </div>
+</div>
+{% endblock %}

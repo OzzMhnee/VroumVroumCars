@@ -1,0 +1,67 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des marques{% endblock %}
+
+{% block stylesheets %}
+    <style>
+        .brand-table-container {
+            border-radius: 30px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+            padding: 32px 32px 24px 32px;
+            width: 750px;
+        }
+        .brand-table td, .brand-table th {
+            vertical-align: middle;
+            text-align: center;
+        }
+        .brand-logo {
+            width: 48px;
+            height: 48px;
+            object-fit: contain;
+            border: 2px solid #e0e0e0
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+<div class="d-flex flex-column justify-content-between align-items-center mt-4">
+    <div class="brand-table-container">
+        <h1 class="brand-title">Liste des marques</h1>
+        <table class="table brand-table">
+            <thead>
+                <tr>
+                    <th style="width: 50px;">ID</th>
+                    <th style="width: 60px;">Logo</th>
+                    <th style="width: 150px;">Nom</th>
+                    <th style="width: 200px;">Année de création</th>
+                    <th style="width: 250px;">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for brand in brands %}
+                <tr>
+                    <td>{{ brand.id }}</td>
+                    <td>
+                        <img src="{{ asset('img/brands/' ~ brand.imgBrand) }}" alt="{{ brand.name }}" class="brand-logo">
+                    </td>
+                    <td><span class="fw-semibold">{{ brand.name }}</span></td>
+                    <td>{{ brand.createdAt|date('Y') }}</td>
+                    <td class="brand-actions">
+                        <a href="{{ path('app_brand_update', {'id': brand.id}) }}" class="btn btn-outline-primary btn-sm">Éditer</a>
+                        <form method="post" action="{{ path('app_brand_delete', {'id': brand.id}) }}" style="display:inline-block;" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette marque ?');">
+                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ brand.id) }}">
+                            <button class="btn btn-outline-danger btn-sm">Supprimer</button>
+                        </form>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="5">Aucune marque trouvée.</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <a href="{{ path('app_brand_new') }}" class="btn btn-success add-brand-btn">Ajouter une nouvelle marque</a>
+    </div>
+</div>
+{% endblock %}

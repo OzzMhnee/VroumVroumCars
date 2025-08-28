@@ -1,0 +1,61 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Détails de la voiture{% endblock %}
+
+{% block stylesheets %}
+    <style>
+        .car-detail-container {
+            background: #fff;
+            border-radius: 28px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.10);
+            padding: 38px 38px 28px 38px;
+            margin: 40px auto 0 auto;
+            max-width: 520px;
+            text-align: center;
+        }
+        .car-detail-image {
+            
+            height: 250px;
+            object-fit: cover;
+            border: 2px solid #e0e0e0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            margin-bottom: 18px;
+        }
+        .car-detail-title {
+            font-size: 2.1rem;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 18px;
+        }
+        .car-detail-info {
+            font-size: 1.13rem;
+            margin-bottom: 10px;
+        }
+        .car-detail-actions {
+            margin-top: 28px;
+        }
+        .car-detail-actions .btn {
+            margin-right: 10px;
+            margin-bottom: 6px;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+    <div class="car-detail-container">
+        <img src="{{ asset('img/cars/' ~ car.imgCar) }}" alt="{{ car.name }}" class="car-detail-image">
+        <h1 class="car-detail-title">{{ car.name }}</h1>
+        <div class="car-detail-info"><strong>Marque :</strong> {{ car.BrandId.name }}</div>
+        <div class="car-detail-info"><strong>Date de mise en circulation :</strong> {{ car.circulationAt | date('d/m/Y') }}</div>
+        <div class="car-detail-info"><strong>Nombre de portes :</strong> {{ car.DoorsNumber }}</div>
+        <div class="car-detail-info"><strong>Électrique :</strong> {{ car.isElectric ? 'Oui' : 'Non' }}</div>
+        <div class="car-detail-actions">
+            <a href="{{ path('app_car_update', {'id': car.id}) }}" class="btn btn-outline-primary">Éditer</a>
+            <form method="post" action="{{ path('app_car_delete', {'id': car.id}) }}" style="display:inline-block;" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette voiture ?');">
+                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ car.id) }}">
+                <button class="btn btn-outline-danger">Supprimer</button>
+            </form>
+            <a href="{{ path('app_car') }}" class="btn btn-secondary">Retour à la liste</a>
+        </div>
+    </div>
+{% endblock %}
