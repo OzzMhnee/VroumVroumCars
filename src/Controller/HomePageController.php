@@ -18,4 +18,3 @@ final class HomePageController extends AbstractController
         ]);
     }
 }
-

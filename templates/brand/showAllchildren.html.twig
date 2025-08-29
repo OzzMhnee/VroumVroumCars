@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="w-50 mt-4 mx-auto d-flex row">
+        {% for car in cars %}
+            <div class="col-md-4 mb-4">
+            <!-- disposition des colonnes (elles sont md medium et prennnent 4 4/12 de la taille parent) -->
+                <div class="card shadow-sm h-100 rounded-pill ">
+                    <div class="card-body text-center">
+                        <h5 class="card-title"><strong>{{ car.name }}</strong></h5>
+                        <img src="{{ asset('img/cars/' ~ car.imgCar) }}" class="card-img-top" alt="{{ car.name }}" style="height: 180px; object-fit: contain;">
+                        <span class="badge {{ car.isElectric ? 'bg-success' : 'bg-secondary' }}">
+                            {{ car.isElectric ? 'Électrique' : 'Thermique' }}
+                        </span>
+                        <div class="mt-3">
+                            <a href="{{ path('app_car_show', {'id': car.id}) }}" class="btn btn-outline-primary btn-sm">Détail</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% else %}
+            <div class="text-center text-muted mt-4">Aucune voiture disponible.</div>
+        {% endfor %}
+    </div>
+{% endblock %}

@@ -100,4 +100,13 @@ final class CarsController extends AbstractController
             'car' => $car,
         ]);
     }
+
+    #[Route('/All/Cars', name: 'app_car_all')]
+    public function showAllCars(CarRepository $repo): Response
+    {
+        $cars = $repo->findAll();
+        return $this->render('brand/showAllchildren.html.twig', [
+            'cars' => $cars,
+        ]);
+    }
 }

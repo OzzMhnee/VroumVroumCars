@@ -10,6 +10,25 @@
 
         {% block javascripts %}
             {% block importmap %}{{ importmap('app') }}{% endblock %}
+            <script>
+                function hideFlashMessages() {
+                    setTimeout(function() {
+                        const flashMessages = document.querySelectorAll('.flash-white');
+                        flashMessages.forEach(function(flash) {
+                            flash.style.transition = 'opacity 0.5s ease-out';
+                            flash.style.opacity = '0';
+                            setTimeout(function() {
+                                if (flash.parentNode) {
+                                    flash.parentNode.removeChild(flash);
+                                }
+                            }, 500);
+                        });
+                    }, 3000);
+                }
+
+                document.addEventListener('DOMContentLoaded', hideFlashMessages);
+                document.addEventListener('turbo:load', hideFlashMessages);
+            </script>
         {% endblock %}
 
     </head>

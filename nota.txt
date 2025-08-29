@@ -28,4 +28,3 @@ How to Implement a Registration Form
         php bin/console doctrine:migrations:migrate
         php bin/console make:registration-form
 php bin/console make:security:form-login
-
